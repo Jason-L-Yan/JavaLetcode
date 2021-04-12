@@ -8,6 +8,7 @@
             "label": "echo",
             "type": "shell",
             "command": "java ${file}",
+            // "command": "javac -encoding UTF-8 ${file}",
             "problemMatcher": [],
             "group": {
                 "kind": "build",

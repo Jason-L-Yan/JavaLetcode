@@ -1,3 +1,4 @@
+package JavaLearning;
 import java.util.Scanner;
 public class KeyInput2{
 	public static void main(String[] args){

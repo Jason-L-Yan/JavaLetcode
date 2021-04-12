@@ -23,6 +23,7 @@ public class SwitchTest2 {
                 break;
         }
         System.out.println(level);
+        
     }
     
 }
