@@ -5,4 +5,8 @@ public class Cats extends Animals{
         System.out.println("猫在走猫步！！！");
     }
     
+    // 子类特有的方法。
+    public void catchMouse(){
+        System.out.println("猫正在抓老鼠！！！");
+    }
 }

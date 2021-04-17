@@ -57,5 +57,15 @@ public class DuoTaiTest {
         Animals a3 = new Birdss();
         a3.move();
 
+        // ==========================================================
+        Animals a5 = new Cats();  // 底层对象是一只猫。
+        // a5.catchMouse();  // catchMouse()是Cats.class独有的方法。
+        // 分析能否编译通过和运行？
+        // 分析程序一定要分析编译阶段的静态绑定和运行阶段的动态绑定。
+        // 错误：找不到符号
+        // 因为编译器只知道a5的类型是Animals，去Animals.class文件中找不到catchMouse()方法。
+        // 所以静态绑定失败，编译报错。
+        
+
     }
 }
