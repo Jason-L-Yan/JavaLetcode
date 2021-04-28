@@ -105,7 +105,7 @@ public class DuoTaiTest {
 				instanceof 运算符进行判断。（java规范中要求的。）
 				这样可以很好的避免：ClassCastException
 		*/
-        System.out.println("****************************************");
+        
         System.out.println(a6 instanceof Cats);
         if(a6 instanceof Cats){  // 如果 a6 是一个Cat，在进行强制类型转换
             Cats y = (Cats)a6;
@@ -113,6 +113,6 @@ public class DuoTaiTest {
         }
         
         
-        
+     
     }
 }
