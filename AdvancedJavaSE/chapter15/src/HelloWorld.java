@@ -37,6 +37,13 @@ public class HelloWorld {
     }
 
     public static void main(String[] args) {
+        HelloWorld h = new HelloWorld();
+        int i = h.sumNumber(10, 2);
+        System.out.println(i);
         System.out.println("你好");
+    }
+
+    public int sumNumber(int a, int b){
+        return a + b;
     }
 }
