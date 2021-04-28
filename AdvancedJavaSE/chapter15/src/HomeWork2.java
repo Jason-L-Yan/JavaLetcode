@@ -16,6 +16,7 @@ public class HomeWork2 {
         System.out.println("speed:" + v2.getSpeed());
         System.out.println("size:" + v2.getSize());
         System.out.println("***********************************");
+        System.out.println("***********************************");
         // 加速
         v2.speedUp(10);
         System.out.println("speed:" + v2.getSpeed());
