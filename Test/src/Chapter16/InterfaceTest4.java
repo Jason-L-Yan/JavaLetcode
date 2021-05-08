@@ -1,3 +1,4 @@
+package Chapter16;
 /*
 	继承和实现都存在的话，代码应该怎么写？
 		extends 关键字在前。
