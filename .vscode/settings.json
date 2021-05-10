@@ -1,0 +1,12 @@
+{
+    "files.encoding": "gbk",
+    "files.autoGuessEncoding": true,
+    "java.project.sourcePaths": [
+        "AdvancedJavaSE/Chapter16/src"
+    ],
+    // "java.debug.settings.vmArgs": "-XX:+ShowCodeDetailsInExceptionMessages -Dfile.encoding=GBK -cp C:\\Users\\jason\\AppData\\Roaming\\Code\\User\\workspaceStorage\\d77e1b782b10eb7da4150e5d4a2aead6\\redhat.java\\jdt_ws\\Java_2d47b8d5\\bin\\",
+    // "java.test.config": {},
+    // "java.jdt.ls.vmargs": "",
+    // "java.jdt.ls.vmargs": "-XX:+ShowCodeDetailsInExceptionMessages -Dfile.encoding=GBK",
+    // "java.home": ""
+}

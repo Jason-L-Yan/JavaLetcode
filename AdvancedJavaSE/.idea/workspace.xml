@@ -26,7 +26,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07b19faf-8fda-4f54-9bd3-b3c3e822c029" name="Default Changelist" comment="抽象方法" />
+    <list default="true" id="07b19faf-8fda-4f54-9bd3-b3c3e822c029" name="Default Changelist" comment="抽象方法">
+      <change afterPath="$PROJECT_DIR$/Chapter16/src/Testing222.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../com.zoo/HelloWorld/src/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../com.zoo/HelloWorld/src/Chapter17/HelloWorld.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,16 +82,9 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Java" />
   </component>
-  <component name="RunManager" selected="Application.InterfaceTest2">
+  <component name="RunManager" selected="Application.Testing222">
     <configuration name="AbstractTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AbstractTest" />
-      <module name="Chapter16" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FinalTest3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="FinalTest3" />
       <module name="Chapter16" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -113,13 +111,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Testing222" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Testing222" />
+      <module name="Chapter16" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Testing222" />
         <item itemvalue="Application.InterfaceTest2" />
         <item itemvalue="Application.InterfaceTest" />
         <item itemvalue="Application.AbstractTest" />
         <item itemvalue="Application.FinalTest4" />
-        <item itemvalue="Application.FinalTest3" />
       </list>
     </recent_temporary>
   </component>
@@ -137,6 +142,7 @@
       <workItem from="1619611454959" duration="133000" />
       <workItem from="1619611602424" duration="19333000" />
       <workItem from="1619708769739" duration="96000" />
+      <workItem from="1620484570213" duration="1381000" />
     </task>
     <task id="LOCAL-00001" summary="同步测试">
       <created>1619580808665</created>
@@ -224,22 +230,30 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="423" y="336" key="#com.intellij.refactoring.memberPushDown.PushDownDialog/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1619658495320" />
-    <state width="1441" height="282" key="GridCell.Tab.0.bottom" timestamp="1619708692132">
+    <state x="500" y="205" key="FileChooserDialogImpl" timestamp="1620484678144">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1441" height="282" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1619708692132" />
-    <state width="1441" height="282" key="GridCell.Tab.0.center" timestamp="1619708692123">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="500" y="205" key="FileChooserDialogImpl/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1620484678144" />
+    <state width="1877" height="257" key="GridCell.Tab.0.bottom" timestamp="1620539312455">
+      <screen x="1440" y="-76" width="1920" height="1080" />
     </state>
-    <state width="1441" height="282" key="GridCell.Tab.0.center/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1619708692123" />
-    <state width="1441" height="282" key="GridCell.Tab.0.left" timestamp="1619708692123">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1397" height="257" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1620484807272" />
+    <state width="1877" height="257" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.-76.1920.1080@1440.-76.1920.1080" timestamp="1620539312455" />
+    <state width="1877" height="257" key="GridCell.Tab.0.center" timestamp="1620539312455">
+      <screen x="1440" y="-76" width="1920" height="1080" />
     </state>
-    <state width="1441" height="282" key="GridCell.Tab.0.left/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1619708692123" />
-    <state width="1441" height="282" key="GridCell.Tab.0.right" timestamp="1619708692132">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1397" height="257" key="GridCell.Tab.0.center/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1620484807272" />
+    <state width="1877" height="257" key="GridCell.Tab.0.center/0.0.1440.900/1440.-76.1920.1080@1440.-76.1920.1080" timestamp="1620539312455" />
+    <state width="1877" height="257" key="GridCell.Tab.0.left" timestamp="1620539312455">
+      <screen x="1440" y="-76" width="1920" height="1080" />
     </state>
-    <state width="1441" height="282" key="GridCell.Tab.0.right/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1619708692132" />
+    <state width="1397" height="257" key="GridCell.Tab.0.left/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1620484807272" />
+    <state width="1877" height="257" key="GridCell.Tab.0.left/0.0.1440.900/1440.-76.1920.1080@1440.-76.1920.1080" timestamp="1620539312455" />
+    <state width="1877" height="257" key="GridCell.Tab.0.right" timestamp="1620539312455">
+      <screen x="1440" y="-76" width="1920" height="1080" />
+    </state>
+    <state width="1397" height="257" key="GridCell.Tab.0.right/0.0.1440.900/1440.-76.1920.1080@0.0.1440.900" timestamp="1620484807272" />
+    <state width="1877" height="257" key="GridCell.Tab.0.right/0.0.1440.900/1440.-76.1920.1080@1440.-76.1920.1080" timestamp="1620539312455" />
     <state width="1441" height="320" key="GridCell.Tab.1.bottom" timestamp="1619611412254">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
