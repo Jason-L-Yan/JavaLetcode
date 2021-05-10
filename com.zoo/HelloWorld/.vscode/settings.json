@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "src/Chapter17",
+        "src"
+    ],
+    "files.encoding": "gbk",
+    "java.debug.settings.console": "externalTerminal",
+    // "java.jdt.ls.vmargs": "-XX:+ShowCodeDetailsInExceptionMessages -Dfile.encoding=GBK",
+}
