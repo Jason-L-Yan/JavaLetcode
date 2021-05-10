@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Testing3 {
     public static void main(String[] args) {
-        Testing tet = new Testing();
         System.setProperty("file.encoding","GBK");
         Scanner sc = new Scanner(System.in);
         String str = sc.next();
