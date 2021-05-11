@@ -1,0 +1,190 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch ArrayTest10",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest10",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest9",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest9",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest8",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest8",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest7",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest7",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch CustomerConsume",
+            "request": "launch",
+            "mainClass": "Chapter16.CustomerConsume",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch InterfaceTest3",
+            "request": "launch",
+            "mainClass": "Chapter16.InterfaceTest3",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch InterfaceTest4",
+            "request": "launch",
+            "mainClass": "Chapter16.InterfaceTest4",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestPower2",
+            "request": "launch",
+            "mainClass": "Chapter16.TestPower2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestPower",
+            "request": "launch",
+            "mainClass": "Chapter17.TestPower",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch Testing3",
+            "request": "launch",
+            "mainClass": "Chapter17.Testing3",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch Test01",
+            "request": "launch",
+            "mainClass": "Chapter18.Ni_Ming_Nei_Bu_Lei.Test01",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestObject",
+            "request": "launch",
+            "mainClass": "Chapter18.TestObject",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestObject2",
+            "request": "launch",
+            "mainClass": "Chapter18.TestObject2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestObject3",
+            "request": "launch",
+            "mainClass": "Chapter18.TestObject3",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestObject4",
+            "request": "launch",
+            "mainClass": "Chapter18.TestObject4",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestObject5",
+            "request": "launch",
+            "mainClass": "Chapter18.TestObject5",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestObject6",
+            "request": "launch",
+            "mainClass": "Chapter18.TestObject6",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestObject7",
+            "request": "launch",
+            "mainClass": "Chapter18.TestObject7",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch Testing2",
+            "request": "launch",
+            "mainClass": "Testing2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest1",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest1",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest2",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest3",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest3",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest4",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest4",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest5",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest5",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayTest6",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArrayTest6",
+            "projectName": "HelloWorld_f8abeadc",
+            "args": "admin 123"
+        }
+    ]
+}
