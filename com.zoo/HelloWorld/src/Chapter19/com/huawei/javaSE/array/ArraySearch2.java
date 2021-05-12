@@ -26,7 +26,7 @@
 3、二分法查找算法是基于排序的基础之上。（没有排序的数据是无法查找的。）
 
  */
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class ArraySearch2 {
     public static void main(String[] args) {

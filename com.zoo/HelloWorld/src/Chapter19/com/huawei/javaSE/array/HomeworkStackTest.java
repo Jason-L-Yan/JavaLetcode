@@ -1,4 +1,4 @@
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class HomeworkStackTest {
     public static void main(String[] args) {

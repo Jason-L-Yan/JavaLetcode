@@ -8,7 +8,7 @@
 		5、假设栈的默认初始化容量是10.（请注意无参数构造方法的编写方式。）
  */
 
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class HomeworkStack {
     private Object[] elements;

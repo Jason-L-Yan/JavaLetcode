@@ -5,7 +5,7 @@
         第二种方式：二分法查找（算法），这个效率较高。
  */
 
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class ArraySearch {
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 /**
  * 使用以下SUN公司提供的数组工具类：java.util.Arrays;
  */
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 import java.util.Arrays;
 

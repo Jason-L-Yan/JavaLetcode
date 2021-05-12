@@ -4,7 +4,7 @@
     JVM调用main方法的时候，会自动传一个String数组过来。
  */
 
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class ArrayTest5 {
     public static void main(String[] args) {

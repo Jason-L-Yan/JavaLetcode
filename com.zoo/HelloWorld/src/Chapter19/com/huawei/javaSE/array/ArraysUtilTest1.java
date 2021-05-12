@@ -1,4 +1,4 @@
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 import java.util.Arrays;
 

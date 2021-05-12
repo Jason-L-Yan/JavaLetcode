@@ -16,7 +16,7 @@
     当你创建数组的时候，确定数组中存储哪些具体的元素时，采用静态初始化方式。
     当你创建数组的时候，不确定将来数组中存储哪些数据，你可以采用动态初始化的方式，预先分配内存空间。
  */
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class ArrayTest2 {
     public static void main(String[] args) {

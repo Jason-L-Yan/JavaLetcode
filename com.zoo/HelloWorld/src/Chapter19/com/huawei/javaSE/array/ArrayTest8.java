@@ -8,7 +8,7 @@
  * 结论：数组扩容效率较低。因为涉及到拷贝的问题。所以在以后的开发中请注意：尽可能少的进行数组的拷贝。
  * 可以在创建数组对象的时候预估计以下多长合适，最好预估准确，这样可以减少数组的扩容次数。提高效率。
  */
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class ArrayTest8 {
     public static void main(String[] args) {

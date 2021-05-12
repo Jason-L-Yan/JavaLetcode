@@ -1,4 +1,4 @@
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 // 当一个方法的参数是一个数组的时候，我们还可以采用这种方式传。
 public class ArrayTest4 {

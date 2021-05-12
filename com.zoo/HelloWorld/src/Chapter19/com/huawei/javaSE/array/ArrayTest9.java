@@ -8,12 +8,12 @@
         int[][] array = {{1,1,1},{2,3,4,5},{0,0,0,0},{2,3,4,5},{2,3,4,5},{2,3,4,5},{2,3,4,5}};
  */
 
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class ArrayTest9 {
     public static void main(String[] args) {
         // 一维数组
-        int[] array = {100, 200, 500};
+        // int[] array = {100, 200, 500};
         
         // 二维数组,第二个维度可以不同。
         int[][] a = {

@@ -1,5 +1,4 @@
 package Chapter17;
-
 public class User {
     private int id;
     protected int age;

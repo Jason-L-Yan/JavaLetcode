@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ArraySearch",
+            "request": "launch",
+            "mainClass": "Chapter19.com.huawei.javaSE.array.ArraySearch",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
             "name": "Launch ArraysUtilTest1",
             "request": "launch",
             "mainClass": "com.huawei.javaSE.array.ArraysUtilTest1",

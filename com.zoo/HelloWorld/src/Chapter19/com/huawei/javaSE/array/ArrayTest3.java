@@ -1,4 +1,4 @@
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 // 当一个方法上，参数的类型是一个数组的时候。
 

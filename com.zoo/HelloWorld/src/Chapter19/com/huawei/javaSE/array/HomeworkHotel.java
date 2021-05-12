@@ -2,7 +2,7 @@
 酒店对象，酒店中有二维数组，二维数组模拟大厦。
  */
 
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class HomeworkHotel {
     // 二维数组，模拟大厦所有的房间

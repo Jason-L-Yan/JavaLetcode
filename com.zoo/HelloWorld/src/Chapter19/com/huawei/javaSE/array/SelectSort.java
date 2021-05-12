@@ -27,7 +27,7 @@
         ...
  */
 
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class SelectSort {
     public static void main(String[] args) {

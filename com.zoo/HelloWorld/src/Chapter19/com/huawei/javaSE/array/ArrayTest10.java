@@ -1,4 +1,4 @@
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 /*
 动态初始化二维数组。

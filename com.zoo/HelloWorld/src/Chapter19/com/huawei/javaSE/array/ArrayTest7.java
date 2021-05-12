@@ -2,7 +2,7 @@
  * 一维数组的深入，数组中存储的类型为：引用数据类型
  * 对于数组来说，实际上只能存储java对象的“内存地址”。数组中存储的每个元素是“引用”。
  */
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class ArrayTest7 {
     public static void main(String[] args) {

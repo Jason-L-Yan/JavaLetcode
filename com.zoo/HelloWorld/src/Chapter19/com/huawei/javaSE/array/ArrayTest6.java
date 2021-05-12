@@ -2,7 +2,7 @@
 模拟一个系统，假设这个系统要使用，必须输入用户名和密码。
  */
 
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class ArrayTest6 {
     public static void main(String[] args) {

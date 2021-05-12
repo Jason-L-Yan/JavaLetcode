@@ -1,7 +1,7 @@
 /**
  * ц╟ещеепР
  */
-package com.huawei.javaSE.array;
+package Chapter19.com.huawei.javaSE.array;
 
 public class BubbleSort {
     public static void main(String[] args) {
