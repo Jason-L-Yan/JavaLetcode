@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Room",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.Room",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch HomeworkStackTest",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.HomeworkStackTest",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
             "name": "Launch ArrayTest10",
             "request": "launch",
             "mainClass": "com.huawei.javaSE.array.ArrayTest10",
