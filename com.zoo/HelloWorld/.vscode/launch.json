@@ -6,6 +6,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ArraysUtilTest1",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArraysUtilTest1",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArraySearch2",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArraySearch2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArraySearch",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArraySearch",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch SelectSort",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.SelectSort",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch BubbleSort",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.BubbleSort",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArraysTest1",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.ArraysTest1",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
             "name": "Launch HomeworkHotelManagementSystem",
             "request": "launch",
             "mainClass": "com.huawei.javaSE.array.HomeworkHotelManagementSystem",
