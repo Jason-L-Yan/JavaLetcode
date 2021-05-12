@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch HomeworkHotelManagementSystem",
+            "request": "launch",
+            "mainClass": "com.huawei.javaSE.array.HomeworkHotelManagementSystem",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
             "name": "Launch Room",
             "request": "launch",
             "mainClass": "com.huawei.javaSE.array.Room",

@@ -74,7 +74,7 @@ public class Room {
     // toString方法重写
     @Override
     public String toString() {
-        return "Room [no=" + no + ", status=" + (status ? "空闲" : "占用") + ", type=" + type + "]";
+        return "[" + no + "," + (status ? "空闲" : "占用") + "," + type + "]";
     }
 
     // 编写一个临时程序测试以下
