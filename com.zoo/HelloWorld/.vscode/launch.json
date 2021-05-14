@@ -6,6 +6,69 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch IntegerTest4",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.integer.IntegerTest4",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch IntegerTest2",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.integer.IntegerTest2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringBuilderTest1",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.stringbuffer.StringBuilderTest1",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringBuffer1",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.stringbuffer.StringBuffer1",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringTest5",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.string.StringTest5",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringTest4",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.string.StringTest4",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringTest2",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.string.StringTest2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch UserTest",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.string.UserTest",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringTest1",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.string.StringTest1",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
             "name": "Launch ArraySearch",
             "request": "launch",
             "mainClass": "Chapter19.com.huawei.javaSE.array.ArraySearch",
