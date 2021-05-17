@@ -1,4 +1,4 @@
-package Chapter20.com.huawei.javaSE.number;
+package Chapter20.com.huawei.javaSE.random;
 
 import java.util.Random;
 
@@ -12,7 +12,7 @@ public class RandomTest1 {
 
         // 产生[0~100]之间的随机数。不能产生101。
         // nextInt翻译为：下一个int类型的数据是101，表示只能取到100.
-        int nums2 = r.nextInt(100);
+        int nums2 = r.nextInt(101);
         System.out.println(nums2);
     }
 }

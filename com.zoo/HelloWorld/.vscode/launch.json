@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SwitchTest",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.enum2.SwitchTest",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch enumTest2",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.enum2.enumTest2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch enumTest",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.enum2.enumTest",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch DescendingSort",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.random.DescendingSort",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch RandomTest2",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.random.RandomTest2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
             "name": "Launch RandomTest1",
             "request": "launch",
             "mainClass": "Chapter20.com.huawei.javaSE.number.RandomTest1",
