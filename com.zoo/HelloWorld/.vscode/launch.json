@@ -6,6 +6,69 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch RandomTest1",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.number.RandomTest1",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch BigDecimalTest",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.number.BigDecimalTest",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch DecimalFormatTest",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.number.DecimalFormatTest",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch DateTest3",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.date.DateTest3",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch DateTest2",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.date.DateTest2",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch DateTest1",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.date.DateTest1",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch IntegerTest7",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.integer.IntegerTest7",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch IntegerTest6",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.integer.IntegerTest6",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
+            "name": "Launch IntegerTest5",
+            "request": "launch",
+            "mainClass": "Chapter20.com.huawei.javaSE.integer.IntegerTest5",
+            "projectName": "HelloWorld_f8abeadc"
+        },
+        {
+            "type": "java",
             "name": "Launch IntegerTest4",
             "request": "launch",
             "mainClass": "Chapter20.com.huawei.javaSE.integer.IntegerTest4",
