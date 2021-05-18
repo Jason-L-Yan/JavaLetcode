@@ -1,7 +1,6 @@
 @startuml 类图
 title 异常继承图
 
-
 class Object
 {
     ' +void operation1();
@@ -42,7 +41,11 @@ VirtualMachinError<|-- StcakOverflowError
 Error<|-- IOError
 Throwable <|-- Exception
 Exception <|-- RuntimeException
-note top:所有RuntimeException及子类都属于运行时异常
+note top
+    note 1 所有RuntimeException及子类都属于运行时异常
+    note 2 运行时异常也叫未受检异常、非受控异常
+    note 3 运行时异常不需要上抛，不需要程序员处理
+end note
 RuntimeException <|-- NullPointerException
 RuntimeException <|-- ClassCastException
 RuntimeException <|-- IllegalArgumentException
@@ -52,7 +55,10 @@ IllegalArgumentException <|-- NumberFormatException
 Exception <|-- ExceptionSubClass
 note right
     note 1 ExceptionSubClass不是某一个类，泛指Exception的直接子类
-    note 2 所有ExceptionSubClass的直接子类，都叫做编译异常
+    note 2 所有ExceptionSubClass的直接子类，都叫做编译时异常，
+    note 3 编译时异常也叫受检异常、受控异常。编译异常不是发生在编译
+               阶段所有异常都发生在运行阶段。而是指编译阶段必须对异常处理，
+               这样编译才能通过。
 end note
 
 @enduml
