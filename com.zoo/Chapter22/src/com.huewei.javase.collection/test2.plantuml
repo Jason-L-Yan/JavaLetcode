@@ -1,0 +1,48 @@
+@startuml Map集合关系图
+title Map集合关系图
+interface Map{
+
+}
+note left
+note 1 Map集合和Collection集合没有关系。
+note 2 Map集合一key和value的这种键值对的方式存储元素。
+note 3 key和value都是存储java对象的内存地址。
+note 4 所有Map的key特点：无序不可重复的。Map集合的key
+值和Set集合存储元素特点相同。
+end note
+
+interface SortedMap {
+
+}
+note top
+首先是无序不可重复的，另外放在SortedMap集合key部分
+的元素会自动按照大小顺序排序，称为可排序的集合。
+end note
+
+Map <|.. HashMap
+note left
+底层是哈希表数据结构，是非线程安全的。
+end note
+Map <|.. Hashtable
+note left
+底层是哈希表数据结构，是线程安全的，
+其中所有方法都带有synchronized关键字，
+效率低，现在使用较少了，因为线程安全有
+其它更好的方案。
+end note
+Hashtable <|-- Properties
+note left
+Properties集合是线程安全的，因为继承了
+Hashtable，另外Properties存储元素也采用
+key和value的形式存储，并且key和value只支持
+String类型，不支持其它类型。Properties被称为
+属性类
+end note
+Map <|-- SortedMap
+SortedMap <|.. TreeMap
+note right
+TreeMap集合底层的数据结构是
+一个二叉树。TreeMap集合的key
+可以自动按照大小排序。
+end note
+@enduml

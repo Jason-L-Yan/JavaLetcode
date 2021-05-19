@@ -1,0 +1,162 @@
+@startuml Collection集合关系图
+title Collection集合关系图
+
+interface Iterable {
+    +iterator():Iterator<T> 
+}
+note right
+可迭代的，可遍历的，
+所有元素都是可迭代的、可遍历的
+end note
+
+interface Iterator {
+    +hasNext():boolean
+    +next():E
+    +remove():void
+
+}
+note left:集合的迭代器对象
+
+interface Collection
+{
+    ' +void operation1();
+    ' +int operation2(int i);
+    
+    ' -int attribute1;
+    ' -char attribute2;
+}
+
+interface List {
+
+}
+
+interface Set {
+
+}
+
+interface SortedSet {
+
+}
+
+' 实现
+' Iterable <|.. Collection
+' 继承关系
+Iterable <|-- Collection
+note left
+所有集合继承Iterable的含义是，
+所有集合都是可迭代的。
+Collection调用iterator()方法。
+end note
+
+' 关联关系
+Iterator <-- Collection
+Collection <|-- List
+note top
+List集合存储元素的特点：有序可重复，存储元素有下标
+有序实际上是说存进去是这个顺序，取出来还是这个顺序。
+这里的顺序不是说按照大小排序。有序是因为List集合都
+有下标，下标从0开始，以1递增。
+end note
+' 实现关系
+List <|.. ArrayList
+note left
+ArrayList集合底层采用了
+数组这种数据结构（非线程安全）
+end note
+List <|.. LinkedList
+note right
+LinkedList集合底层采用了
+双向链表这种数据结构
+end note
+List <|.. Vector
+note right
+Vector集合底层采用了数组这种数据结构
+（线程安全）Vector所以有方法都有
+synchronizeed关键字修饰，所以线程安
+全，但是效率低，现在保证线程安全有别
+的方案，所以Vector集合很少使用。
+end note
+Collection <|-- Set
+note top
+Set集合存储元素的特点：无序不可重复，
+存储元素没有下标，无序实际上是说存进去
+是这个顺序，取出来不一定还是这个顺序。
+end note
+
+Set <|.. HashSet
+note top
+实际上HashSet集合在new的时候，底层
+实际上new了一个HashMap集合。向HashSet
+集合中存储元素，实际上存储到了HashMap集合中了。
+HashMap集合是哈希表数据结构。
+end note
+
+Set <|-- SortedSet
+note top
+SortedSet集合存储元素的特点：
+由于继承了Set集合，所以它的特点也是无序不可重复，
+集合中的元素可以自动排序。我们称为可排序集合。
+放到该集合中的元素自动按照大小顺序排序的。
+end note
+SortedSet <|.. TreeSet
+note left
+TreeSet集合底层实际上是TreeMap,
+new TreeMap集合的时候，底层实际上new了一个
+TreeMap集合，往TreeSet集合中放数据的时候，
+实际上是将数据放到TreeMap集合中了，TreeMap
+集合底层采用二叉树数据结构。
+end note
+' class Error 
+' {
+
+' }
+
+' class Exception
+' {
+
+' }
+
+' ' 虚拟机错误
+' class VirtualMachinError
+' {
+
+' }
+
+' ' note "测试效果222" as N1
+' Object <|-- Throwable
+' note right: 不管是错误还是异常都是可抛出的。
+' ' Throwable .. N1
+' ' N1 .. Object
+
+' Throwable <|-- Error
+' note left
+'     所有错误只要发生，java程序只有一个结果，那
+'     就是终止程序的运行，退出JVM，错误是不能处理的。
+' end note
+' Error<|-- VirtualMachinError
+' VirtualMachinError<|-- StcakOverflowError
+' Error<|-- IOError
+' Throwable <|-- Exception
+' Exception <|-- RuntimeException
+' note top
+'     note 1 所有RuntimeException及子类都属于运行时异常
+'     note 2 运行时异常也叫未受检异常、非受控异常
+'     note 3 运行时异常不需要上抛，不需要程序员处理
+' end note
+' RuntimeException <|-- NullPointerException
+' RuntimeException <|-- ClassCastException
+' RuntimeException <|-- IllegalArgumentException
+' IllegalArgumentException <|-- NumberFormatException
+
+' ' ExceptionSubClass不是某一个类，泛指很多类
+' Exception <|-- ExceptionSubClass
+' note right
+'     note 1 ExceptionSubClass不是某一个类，泛指Exception的直接子类
+'     note 2 所有ExceptionSubClass的直接子类，都叫做编译时异常，
+'     note 3 编译时异常也叫受检异常、受控异常。编译异常不是发生在编译
+'                阶段所有异常都发生在运行阶段。而是指编译阶段必须对异常处理，
+'                这样编译才能通过。
+' end note
+
+@enduml
+
