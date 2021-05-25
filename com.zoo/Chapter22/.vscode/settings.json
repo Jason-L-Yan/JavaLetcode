@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
+        "src/com.huewei.javase.collection",
         "src/com.huawei.javase.homework",
-        "src/com.huewei.javase.collection"
+        "src/com.huawei.javase.singlelink"
     ]
 }
