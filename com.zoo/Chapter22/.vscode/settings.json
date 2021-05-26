@@ -3,5 +3,6 @@
         "src/com.huewei.javase.collection",
         "src/com.huawei.javase.homework",
         "src/com.huawei.javase.singlelink"
-    ]
+    ],
+    "java.dependency.packagePresentation": "flat"
 }
