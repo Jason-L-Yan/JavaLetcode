@@ -1,7 +1,7 @@
 /*
 链表类。(单向链表)
  */
-public class LinkTest1 {
+public class LinkTest1<E> {
     
     Node header = null;
     int size = 0;
@@ -10,7 +10,7 @@ public class LinkTest1 {
         return size;
     }
 
-    public void add(Object data) {
+    public void add(E data) {
         // 创建一个新的节点对象
         // 让之前单链表的末尾节点next指向新节点对象。
         // 有可能这个元素是第一个，也可能是第二个，也可能是第三个。
