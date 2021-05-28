@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 /*
 1、向Map集合中存，以及从Map集合中取，都是先调用key的hashCode方法，然后再调用equals方法！
 equals方法有可能调用，也有可能不调用。
@@ -27,11 +30,25 @@ equals方法有可能调用，也有可能不调用。
 
  */
 // package com.huawei.javase.bean;
-import com.huawei.javase.bean.Student;
-public class HashMapTest2 {
+public class HashMapTest2 {    
     public static void main(String[] args) {
-        Student s1 = new Student("张三");
-        Student s2 = new Student("张三");
+        Student2 s1 = new Student2("张三");
+        Student2 s2 = new Student2("张三");
+        // false 比较两者地址
         System.out.println(s1 == s2); 
+        // false 没有重写equals之前比较的也是地址。重写之后是true 
+        System.out.println(s1.equals(s2)); 
+
+        // 284720968 (重写hashCode之后-1432604525)。没有重写之前返回内存地址
+        System.out.println("s1的hashCode=" + s1.hashCode()); 
+        // 122883338 (重写hashCode之后-1432604525) 
+        System.out.println("s2的hashCode=" + s2.hashCode());  
+        // s1.equals(s2)结果已经是true了，表示s1和s2是一样的，相同的，那么往HashSet集合中放的话，
+        // 按说只能放进去1个。（HashSet集合特点：无序不可重复）
+        Set<Student2> stu = new HashSet<>();
+        stu.add(s1);
+        stu.add(s2);
+        // 这个结果按说应该是1. 但是结果是2.显然不符合HashSet集合存储特点。怎么办？重写hashCode
+        System.out.println(stu.size());  
     }
 }

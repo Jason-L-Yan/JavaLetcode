@@ -27,7 +27,7 @@ public class CollectionTest {
         c.add(1200);  // 自动装箱(java5的新特性。),实际上是放进去了一个对象的内存地址。Integer x = new Integer(1200);
         c.add(3.14);  // 自动装箱(java5的新特性。)
         c.add(new Object());
-        c.add(new Student());
+        c.add(new Student2());
         c.add(true);  // 自动装箱(java5的新特性。)
 
         // 获取集合中元素个数
@@ -64,7 +64,7 @@ public class CollectionTest {
         c.add("def");
         c.add(100);  // 自动装箱。
         c.add("Hello World");
-        c.add(new Student());
+        c.add(new Student2());
         
         // 装换成Object数组
         Object[] obj = c.toArray();
