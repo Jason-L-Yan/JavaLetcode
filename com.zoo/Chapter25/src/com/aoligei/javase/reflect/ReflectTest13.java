@@ -7,6 +7,7 @@ public class ReflectTest13 {
     public static void main(String[] args) {
         // String举例
         Class stringClass = null;
+        System.out.println(System.getProperty("java.version"));
         try {
             stringClass = Class.forName("java.lang.String");
             // 获取String的父类
