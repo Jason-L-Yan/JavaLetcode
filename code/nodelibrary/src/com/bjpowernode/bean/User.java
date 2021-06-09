@@ -1,9 +1,13 @@
 package com.bjpowernode.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String name;
     //状态
@@ -49,6 +53,7 @@ public class User {
     public void setMoney(BigDecimal money) {
         this.money = money;
     }
+
 
     @Override
     public String toString() {

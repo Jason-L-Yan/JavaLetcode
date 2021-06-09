@@ -1,5 +1,7 @@
 package com.bjpowernode.module.user;
 
+import com.bjpowernode.service.UserService;
+import com.bjpowernode.service.impl.UserServiceImpl;
 import com.gn.App;
 import com.bjpowernode.bean.Constant;
 import com.bjpowernode.bean.User;
@@ -21,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -43,17 +46,24 @@ public class UserViewCtrl implements Initializable {
     // 多态
     ObservableList<User> users = FXCollections.observableArrayList();
 
+    private UserService userService = new UserServiceImpl();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // 调用Service层查询用户数据。
+        List<User> userList = userService.select();
+        users.addAll(userList);
 
-        users.add(new User(1, "张三", "正常", new BigDecimal(("100"))));
-        users.add(new User(2, "李四", "正常", new BigDecimal(("100"))));
-        users.add(new User(3, "王五", "正常", new BigDecimal(("100"))));
+        // 改成从硬盘文件中读取
+        // users.add(new User(1, "张三", "正常", new BigDecimal(("100"))));
+        // users.add(new User(2, "李四", "正常", new BigDecimal(("100"))));
+        // users.add(new User(3, "王五", "正常", new BigDecimal(("100"))));
         c1.setCellValueFactory(new PropertyValueFactory<>("id"));
         c2.setCellValueFactory(new PropertyValueFactory<>("name"));
         c3.setCellValueFactory(new PropertyValueFactory<>("money"));
         c4.setCellValueFactory(new PropertyValueFactory<>("status"));
         userTableView.setItems(users);  // 将list数据传送到界面中
+        userTableView.setItems(users);
 
     }
 
@@ -65,7 +75,8 @@ public class UserViewCtrl implements Initializable {
                 Alerts.warning("未选择","请先选择要删除的数据");
                 return;
             }
-            this.users.remove(user);
+            userService.delete(user.getId());  // 从文本中删除
+            this.users.remove(user);  // 仅仅从内存中删除了
             Alerts.success("成功", "操作成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,6 +108,7 @@ public class UserViewCtrl implements Initializable {
             Alerts.warning("未选择","请先选择要修改的数据");
             return;
         }
+        userService.frozen(user.getId());
         user.setStatus(Constant.USER_FROZEN);
         userTableView.refresh();
     }
@@ -107,6 +119,7 @@ public class UserViewCtrl implements Initializable {
     @FXML
     private void userEditView() {
         try {
+            // 获取当前选中的修改数据
             User user = this.userTableView.getSelectionModel().getSelectedItem();
             if (user == null){
                 Alerts.warning("未选择","请先选择要修改的数据");
@@ -159,6 +172,7 @@ public class UserViewCtrl implements Initializable {
      */
     private void initStage(User user) throws IOException {
         FXMLLoader loader = new FXMLLoader();
+        // 点击添加按钮后，加载出现的弹窗
         loader.setLocation(App.class.getResource("/com/bjpowernode/module/user/UserHandleView.fxml"));
         StackPane target = (StackPane) loader.load();
         //Scene scene1 = App.getDecorator().getScene();

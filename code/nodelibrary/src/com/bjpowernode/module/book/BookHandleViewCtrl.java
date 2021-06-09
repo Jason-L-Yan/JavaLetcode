@@ -74,6 +74,7 @@ public class BookHandleViewCtrl {
         book.setAuthor(authorField.getText());
         book.setIsbn(isbnField.getText());
         book.setPublisher(publisherField.getText());
+        // 获取下拉框中的选中的内容
         book.setType(typeField.getSelectionModel().getSelectedItem().toString());
     }
 
