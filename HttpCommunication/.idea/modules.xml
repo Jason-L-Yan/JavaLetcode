@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/02_Servlet生命周期/02_Servlet生命周期.iml" filepath="$PROJECT_DIR$/02_Servlet生命周期/02_Servlet生命周期.iml" />
+      <module fileurl="file://$PROJECT_DIR$/04_HttpServletResponse介绍/04_HttpServletResponse介绍.iml" filepath="$PROJECT_DIR$/04_HttpServletResponse介绍/04_HttpServletResponse介绍.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05_HttpServletRequest介绍/05_HttpServletRequest介绍.iml" filepath="$PROJECT_DIR$/05_HttpServletRequest介绍/05_HttpServletRequest介绍.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06_在线考试管理系统/06_在线考试管理系统.iml" filepath="$PROJECT_DIR$/06_在线考试管理系统/06_在线考试管理系统.iml" />
+      <module fileurl="file://$PROJECT_DIR$/10_重定向解决方案/10_重定向解决方案.iml" filepath="$PROJECT_DIR$/10_重定向解决方案/10_重定向解决方案.iml" />
+      <module fileurl="file://$PROJECT_DIR$/11_请求转发解决方案/11_请求转发解决方案.iml" filepath="$PROJECT_DIR$/11_请求转发解决方案/11_请求转发解决方案.iml" />
+      <module fileurl="file://$PROJECT_DIR$/12_ServletContext/12_ServletContext.iml" filepath="$PROJECT_DIR$/12_ServletContext/12_ServletContext.iml" />
+      <module fileurl="file://$PROJECT_DIR$/13_Cookie/13_Cookie.iml" filepath="$PROJECT_DIR$/13_Cookie/13_Cookie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/14_HttpSession/14_HttpSession.iml" filepath="$PROJECT_DIR$/14_HttpSession/14_HttpSession.iml" />
+    </modules>
+  </component>
+</project>
