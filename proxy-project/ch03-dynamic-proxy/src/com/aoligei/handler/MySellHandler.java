@@ -30,12 +30,10 @@ public class MySellHandler implements InvocationHandler {
             res = price;
         }
 
-
         // 在目标类的方法调用后，你做的其他功能，都是增强的意思。
         System.out.println("淘宝商家，给你返还一个优惠券，或者红包");
 
         // 增加后的价格
         return res;
-
     }
 }
