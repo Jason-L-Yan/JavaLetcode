@@ -13,5 +13,18 @@ public class Main {
             // 但您始终可以通过按 <shortcut actionId="ToggleLineBreakpoint"/> 添加更多断点。
             System.out.println("i = " + i);
         }
+        testBean(null);
+    }
+
+    public static void testBean(String[] args) {
+        FortuneBean fortuneBean = new FortuneBean();
+        fortuneBean.setGolden("金");
+        fortuneBean.setSilver("银");
+        fortuneBean.setBronze("铜");
+        fortuneBean.setStone("石");
+        System.out.println(fortuneBean.getGolden());
+        System.out.println(fortuneBean.getSilver());
+        System.out.println(fortuneBean.getBronze());
+        System.out.println(fortuneBean.getStone());
     }
 }
