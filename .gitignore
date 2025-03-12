@@ -36,3 +36,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.idea/dictionaries/disheng.xml
+/.idea/inspectionProfiles/Project_Default.xml
