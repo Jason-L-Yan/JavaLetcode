@@ -3,7 +3,7 @@ package org.example;
 import java.util.Arrays;
 
 /**
- * H指数
+ * Leetcode 第274题 H指数
  */
 public class CitationsSolution {
     public int hIndex(int[] citations) {
