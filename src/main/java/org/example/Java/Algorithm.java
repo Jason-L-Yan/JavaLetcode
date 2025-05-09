@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Java;
 
 public class Algorithm {
     public static void main(String[] args) {

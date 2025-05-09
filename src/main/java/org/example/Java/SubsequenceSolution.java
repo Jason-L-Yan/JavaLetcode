@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Java;
 
 /**
  * Leetcode 第392题，判断子序列

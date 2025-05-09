@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Java;
 
 public class LoopArraySolution {
     public void rotate(int[] nums, int k) {

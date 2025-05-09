@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Java;
 
 /**
  * Leetcode 第125题 回文字符串

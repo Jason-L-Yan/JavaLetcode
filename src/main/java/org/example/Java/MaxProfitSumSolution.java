@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Java;
 
 /**
  * LeetCode 第122题

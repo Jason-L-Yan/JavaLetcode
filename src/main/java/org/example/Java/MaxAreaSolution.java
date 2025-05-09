@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Java;
 
 /**
  * Leetcode 第11题，盛最多水容器

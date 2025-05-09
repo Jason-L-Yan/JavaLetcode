@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Java;
 
 /**
  * Leetcode 第45题 跳跃游戏二

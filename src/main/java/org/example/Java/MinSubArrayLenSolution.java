@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Java;
 
 public class MinSubArrayLenSolution {
     public int minSubArrayLen(int s, int[] nums) {
