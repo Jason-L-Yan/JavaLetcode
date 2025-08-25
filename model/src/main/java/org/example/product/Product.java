@@ -1,0 +1,16 @@
+package org.example.product;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
+
+@Getter
+@Setter
+public class Product {
+    private Long id;
+    private BigDecimal price;
+    private String productName;
+    private int num;
+}
