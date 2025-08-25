@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -38,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUserId(userId);
         order.setNickName("张三");
         order.setAddress("尚硅谷");
-        order.setProductList(Arrays.asList(product));
+        order.setProductList(List.of(product));
         return order;
     }
 
