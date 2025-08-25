@@ -1,18 +1,43 @@
-order:
-  timeout: 800min
-  autoConfirm: 700d
+server:
+  port: 8000
 
 spring:
+  profiles:
+    active: prod
   application:
     name: service-order
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false
+        namespace: ${spring.profiles.active:dev}
+---
+spring:
   config:
     import:
-      - nacos:service-order.yml
-server:
-  port: 8000
+      - nacos:database.properties?group=order
+      - nacos:common.properties?group=order
+    activate:
+      on-profile: test
 
+---
+spring:
+  config:
+    import:
+      - nacos:database.properties?group=order
+      - nacos:common.properties?group=order
+      - nacos:haha.properties?group=order
+    activate:
+      on-profile: dev
 
-
+---
+spring:
+  config:
+    import:
+      - nacos:database.properties?group=order
+      - nacos:common.properties?group=order
+      - nacos:hehe.properties?group=order
+    activate:
+      on-profile: prod
