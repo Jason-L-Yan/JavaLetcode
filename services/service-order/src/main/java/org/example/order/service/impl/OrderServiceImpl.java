@@ -1,7 +1,10 @@
 package org.example.order.service.impl;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import lombok.extern.slf4j.Slf4j;
 import org.example.order.Order;
+import org.example.order.feign.ProductFeignClient;
 import org.example.order.service.OrderService;
 import org.example.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +30,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     LoadBalancerClient loadBalancerClient;
 
+    @Autowired
+    ProductFeignClient productFeignClient;
+
+    @SentinelResource(value = "createOrder", blockHandler = "createOrderFallback")
     @Override
     public Order createOrder(Long productId, Long userId) {
-        Product product = getProductFromRemoteWithLoadBalanceAnnotation(productId);
+//        Product product = getProductFromRemoteWithLoadBalanceAnnotation(productId);
+        Product product = productFeignClient.getProductById(productId);
         Order order = new Order();
         order.setId(1L);
         BigDecimal totalPrice = product.getPrice().multiply(new BigDecimal(product.getNum()));
@@ -38,6 +46,16 @@ public class OrderServiceImpl implements OrderService {
         order.setNickName("张三");
         order.setAddress("尚硅谷");
         order.setProductList(List.of(product));
+        return order;
+    }
+
+    public Order createOrderFallback(Long productId, Long userId, BlockException blockException) {
+        Order order = new Order();
+        order.setId(0L);
+        order.setTotalAmount(new BigDecimal("0"));
+        order.setUserId(userId);
+        order.setNickName("未知用户");
+        order.setAddress("异常信息：" + blockException.getMessage());
         return order;
     }
 

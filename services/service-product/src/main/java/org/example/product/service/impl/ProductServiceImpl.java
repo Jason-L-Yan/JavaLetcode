@@ -1,10 +1,10 @@
 package org.example.product.service.impl;
 
-import java.math.BigDecimal;
-
 import org.example.product.Product;
 import org.example.product.service.ProductService;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -15,6 +15,11 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(new BigDecimal("99"));
         product.setProductName("apple" + productId);
         product.setNum(2);
+//        try {
+//            TimeUnit.SECONDS.sleep(100);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         return product;
     }
 }

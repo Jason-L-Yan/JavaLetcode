@@ -21,7 +21,5 @@ public class LoadBalancerTest {
         System.out.println(choose.getHost() + ":" + choose.getPort());
         choose = loadBalancerClient.choose("service-product");
         System.out.println(choose.getHost() + ":" + choose.getPort());
-
-
     }
 }

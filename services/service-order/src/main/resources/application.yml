@@ -4,6 +4,7 @@ server:
 spring:
   profiles:
     active: prod
+    include: feign  # 配置application-feign.yml生效
   application:
     name: service-order
   cloud:
@@ -13,6 +14,14 @@ spring:
         import-check:
           enabled: false
         namespace: ${spring.profiles.active:dev}
+#      discovery:
+#        namespace: ${spring.profiles.active:dev}
+
+# 开启openfeign日志
+logging:
+  level:
+    org.example.order.feign: debug
+
 ---
 spring:
   config:
