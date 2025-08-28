@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: route
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+
+# localhost默认端口时80，进入网管关时可以不需要加上端口号
+server:
+  port: 80
