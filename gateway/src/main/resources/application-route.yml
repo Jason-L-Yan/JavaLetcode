@@ -2,3 +2,11 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: order-route
+          uri: lb://service-order  # lb是负载均衡loadbalance的缩写，后面写微服务名字
+          predicates: # 断言，表示遵守什么规则？
+            - Path=/api/order/**
+        - id: product-route
+          uri: lb://service-product
+          predicates:
+            - Path=/api/product/**

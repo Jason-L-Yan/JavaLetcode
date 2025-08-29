@@ -7,12 +7,14 @@ import org.example.order.properties.OrderProperties;
 import org.example.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
 @Slf4j
+@RequestMapping("/api/order")
 //@RefreshScope
 public class OrderController {
 
@@ -57,11 +59,13 @@ public class OrderController {
 
     @GetMapping("/readDb")
     public String readDB() {
+        log.info("read db......");
         return "readBd success...";
     }
 
     @GetMapping("/writeDb")
     public String writeDB() {
+        log.info("write db......");
         return "writeDb success...";
     }
 }
