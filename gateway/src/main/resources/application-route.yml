@@ -1,12 +1,50 @@
 spring:
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowed-origin-patterns: '*'
+            allowed-methods: '*'
+            allowed-headers: '*'
+      default-filters: # 全局过滤器
+        - name: AddResponseHeader  # 添加响应头
+          args:
+            name: X-Response-default
+            value: default
       routes:
-        - id: order-route
+        - id: order-route  # 短写法
           uri: lb://service-order  # lb是负载均衡loadbalance的缩写，后面写微服务名字
           predicates: # 断言，表示遵守什么规则？
             - Path=/api/order/**
-        - id: product-route
+          order: 1  # 值越小，优先级越高
+          filters:
+            - RewritePath=/api/order/(?<segment>.*), /${segment}  # 重写路径
+            - AddResponseHeader=X-Response-Time,966  # 添加响应头
+            - OnceToken=X-Response-Token,jwt
+        - id: product-route  # 长写法
           uri: lb://service-product
           predicates:
-            - Path=/api/product/**
+            - name: Path
+              args:
+                patterns: /api/product/**
+                matchTrailingSlash: true
+          order: 2
+          filters:
+            - RewritePath=/api/product/(?<segment>.*), /${segment}  # 重写路径
+            - AddResponseHeader=X-Response-Time,966
+        - id: bing-route
+          uri: https://www.bing.com
+          predicates:
+            #            - path: user,leifengyang  短写法
+            - name: Path
+              args:
+                patterns: /search
+            - name: Query
+              args:
+                param: q
+                regexp: haha
+            - name: Vip
+              args:
+                param: user
+                value: leifengyang
