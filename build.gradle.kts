@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.1.0"
@@ -7,13 +5,15 @@ plugins {
 }
 
 group = "com.lichee.infinite"
-version = "1.0-SNAPSHOT"
+version = "1.3-Release"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public")
     mavenCentral()
     intellijPlatform {
         defaultRepositories()
+        // 添加备用仓库
+        jetbrainsRuntime()
     }
 }
 
@@ -36,7 +36,7 @@ dependencies {
         } else {
             create("2024.2.1", "2024.2.1")
         }
-        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
+//        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
 
         // Add necessary plugin dependencies for compilation here, example:
         // bundledPlugin("com.intellij.java")
@@ -47,11 +47,12 @@ intellijPlatform {
     pluginConfiguration {
         // 添加基础插件信息
         name = "Magic Plugin"
-        description = "A magic plugin for IntelliJ Platform"
-        
+        description =
+                "专心一件事。设置大模型的系统提示词，回答问题，没有连续对话的功能。Focus on one thing. System prompt for large model, answering " +
+                        "questions, no continuous dialogue function."
+
         ideaVersion {
             sinceBuild = "193"
-            untilBuild = "252.*"
         }
 
         changeNotes = """

@@ -13,9 +13,8 @@
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
     <description><![CDATA[
-        <em>利用大型语言模型为变量命名提供智能辅助。</br>
-    Leverage large language models for intelligent variable naming assistance.
-        </em>
+        <em>专心一件事。设置大模型的系统提示词，回答问题，没有连续对话的功能。</br>
+        Focus on one thing. System prompt for large model, answering questions, no continuous dialogue function.</em>
     ]]></description>
 
     <!-- Product and plugin compatibility requirements.
