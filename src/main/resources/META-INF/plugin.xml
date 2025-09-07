@@ -8,13 +8,14 @@
     <name>Magic</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor url="https://www.yourcompany.com">YourCompany</vendor>
+    <vendor email="licheeinfinite@163.com">lichee</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
     <description><![CDATA[
-        Enter short description for your plugin here.<br>
-        <em>most HTML tags may be used</em>
+        <em>利用大型语言模型为变量命名提供智能辅助。</br>
+    Leverage large language models for intelligent variable naming assistance.
+        </em>
     ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -24,6 +25,15 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <applicationService serviceImplementation="com.lichee.infinite.magic.service.AppSettingsService"/>
     </extensions>
+    <actions>
+        <group id="EditorPopupMenu.AIAssistant" text="AI Assistant" popup="true">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <action id="AIAssistant.ShowDialog"
+                    class="com.lichee.infinite.magic.action.ShowAIAction"
+                    text="打开AI助手"
+                    description="打开 AI 助手对话框"/>
+        </group>
+    </actions>
 </idea-plugin>
