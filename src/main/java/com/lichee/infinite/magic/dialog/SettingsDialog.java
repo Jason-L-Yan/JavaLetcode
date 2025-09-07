@@ -7,6 +7,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.ui.components.JBPasswordField;
 import com.jetbrains.cef.remote.thrift.annotation.Nullable;
 import com.lichee.infinite.magic.service.AppSettingsService;
+import com.lichee.infinite.magicplugin.utils.MagicPluginBundle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class SettingsDialog extends DialogWrapper {
     // ... 不再需要直接持有 Project ...
     public SettingsDialog() { // 构造函数可以不需要 Project了
         super(true);
-        setTitle("API 设置");
+        setTitle(MagicPluginBundle.message("ui.api.settings"));
         setModal(false); // 设置为非模态对话框，允许用户与IDE其他部分交互
         setResizable(true); // 设置对话框可调整大小
         init();
@@ -48,20 +49,20 @@ public class SettingsDialog extends DialogWrapper {
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // API URL 输入
-        formPanel.add(new JLabel("API URL:"));
+        formPanel.add(new JLabel(MagicPluginBundle.message("ui.api.url")));
         apiUrlField = new JTextField(30);
         formPanel.add(apiUrlField);
 
         // API Token 输入
-        formPanel.add(new JLabel("API Token:"));
+        formPanel.add(new JLabel(MagicPluginBundle.message("ui.api.token")));
         apiTokenField = new JBPasswordField(); // 使用密码字段
         formPanel.add(apiTokenField);
 
-        formPanel.add(new JLabel("Model Name:"));
+        formPanel.add(new JLabel(MagicPluginBundle.message("ui.model.name")));
         modelNameField = new JTextField(30);
         formPanel.add(modelNameField);
 
-        formPanel.add(new JLabel("System Prompt:"));
+        formPanel.add(new JLabel(MagicPluginBundle.message("ui.system.prompt")));
         systemPromptField = new JTextField(30);
         formPanel.add(systemPromptField);
 
@@ -95,7 +96,7 @@ public class SettingsDialog extends DialogWrapper {
         String systemPrompt = systemPromptField.getText().trim();
 
         if (apiUrl.isEmpty() || apiToken.isEmpty() || modelName.isEmpty()) {
-            Messages.showErrorDialog(this.getContentPane(), "API URL、API Token和Model Mame不能为空。", "错误");
+            Messages.showErrorDialog(this.getContentPane(), MagicPluginBundle.message("ui.api.address.token.model.notEmpty"), MagicPluginBundle.message("ui.error"));
             return;
         }
 
@@ -106,10 +107,10 @@ public class SettingsDialog extends DialogWrapper {
             settingsService.setModelName(modelName);
             settingsService.setSystemPrompt(systemPrompt);
 
-            Messages.showInfoMessage(this.getContentPane(), "设置已成功保存。", "成功");
+            Messages.showInfoMessage(this.getContentPane(), MagicPluginBundle.message("ui.setting.save.success"), MagicPluginBundle.message("ui.success"));
             close(DialogWrapper.OK_EXIT_CODE); // 关闭对话框
         } catch (Exception ex) {
-            Messages.showErrorDialog(this.getContentPane(), "保存设置时发生错误: " + ex.getMessage(), "错误");
+            Messages.showErrorDialog(this.getContentPane(), MagicPluginBundle.message("ui.saveSettings.error") + ex.getMessage(), MagicPluginBundle.message("ui.error"));
             // 出现异常时也关闭对话框
             close(DialogWrapper.CANCEL_EXIT_CODE);
         }

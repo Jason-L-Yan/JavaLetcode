@@ -28,12 +28,17 @@
         <applicationService serviceImplementation="com.lichee.infinite.magic.service.AppSettingsService"/>
     </extensions>
     <actions>
-        <group id="EditorPopupMenu.AIAssistant" text="AI Assistant" popup="true">
+        <action id="AIAssistant.ShowDialog" class="com.lichee.infinite.magic.action.ShowAIAction">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <action id="AIAssistant.ShowDialog"
-                    class="com.lichee.infinite.magic.action.ShowAIAction"
-                    text="打开AI助手"
-                    description="打开 AI 助手对话框"/>
+<!--            <keyboard-shortcut first-keystroke="control alt i" keymap="$default"/>-->
+        </action>
+
+<!--        <group id="EditorPopupMenu.AIAssistant" text="AI Assistant" popup="true">-->
+<!--            <add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
+<!--            <action id="AIAssistant.ShowDialog"-->
+<!--                    class="com.lichee.infinite.magic.action.ShowAIAction"-->
+<!--                    text="打开AI助手"-->
+<!--                    description="打开 AI 助手对话框"/>-->
 <!--            <action id="AIAssistant.ShowDialog.WithoutText"-->
 <!--                    class="com.lichee.infinite.magic.action.ShowAIAction"-->
 <!--                    text="打开AI助手22"-->
@@ -41,6 +46,7 @@
 <!--                    显示右键的位置-->
 <!--                <add-to-group group-id="EditorPopupMenu" anchor="last"/>-->
 <!--            </action>-->
-        </group>
+<!--        </group>-->
     </actions>
+    <resource-bundle>messages.MagicPluginBundle</resource-bundle>
 </idea-plugin>

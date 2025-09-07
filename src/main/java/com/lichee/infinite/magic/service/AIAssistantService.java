@@ -2,6 +2,7 @@ package com.lichee.infinite.magic.service;
 
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
+import com.lichee.infinite.magicplugin.utils.MagicPluginBundle;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -46,29 +47,11 @@ public final class AIAssistantService {
         String systemPrompt = settingsService.getSystemPrompt();
         // 2. 检查设置是否完整
         if (apiUrl == null || apiUrl.isBlank() || apiToken == null || apiToken.isBlank() || modelName == null || modelName.isBlank()) {
-            throw new IllegalStateException("请先在设置中配置完整的 API 信息 (URL, Token, Model Name)。");
+            throw new IllegalStateException(MagicPluginBundle.message("ui.api.config.complete"));
         }
 
         // 3. 构建符合 OpenAI API 格式的请求 JSON
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("model", modelName); // 使用配置的模型名称，而不是硬编码的
-        // 构建 messages 数组
-        JSONArray messagesArray = new JSONArray();
-        JSONObject userMessage = new JSONObject();
-        if (systemPrompt != null && !systemPrompt.isEmpty()) {
-            JSONObject systemMessage = new JSONObject();
-            systemMessage.put("role", "system");
-            systemMessage.put("content", systemPrompt);
-            messagesArray.put(systemMessage);
-        }
-        userMessage.put("role", "user");
-        userMessage.put("content", userPrompt);
-        messagesArray.put(userMessage);
-        requestBody.put("messages", messagesArray); // 确保 messages 字段存在且是数组
-        // 添加其他可选参数
-        requestBody.put("temperature", 0.7);
-        requestBody.put("max_tokens", 2000);
-        requestBody.put("stream", false);
+        JSONObject requestBody = getRequestBody(userPrompt, modelName, systemPrompt);
 
         RequestBody body = RequestBody.create(
                 requestBody.toString(),
@@ -100,10 +83,33 @@ public final class AIAssistantService {
             } else if (jsonResponse.has("message")) {
                 return jsonResponse.getString("message");
             } else {
-                return "无法解析API响应: " + responseBody;
+                return MagicPluginBundle.message("ui.api.response.unparseable") + responseBody;
             }
         } catch (Exception e) {
-            throw new IOException("API调用失败: " + e.getMessage(), e);
+            throw new IOException(MagicPluginBundle.message("ui.api.call.failure") + e.getMessage(), e);
         }
+    }
+
+    private static @NotNull JSONObject getRequestBody(String userPrompt, String modelName, String systemPrompt) {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("model", modelName); // 使用配置的模型名称，而不是硬编码的
+        // 构建 messages 数组
+        JSONArray messagesArray = new JSONArray();
+        JSONObject userMessage = new JSONObject();
+        if (systemPrompt != null && !systemPrompt.isEmpty()) {
+            JSONObject systemMessage = new JSONObject();
+            systemMessage.put("role", "system");
+            systemMessage.put("content", systemPrompt);
+            messagesArray.put(systemMessage);
+        }
+        userMessage.put("role", "user");
+        userMessage.put("content", userPrompt);
+        messagesArray.put(userMessage);
+        requestBody.put("messages", messagesArray); // 确保 messages 字段存在且是数组
+        // 添加其他可选参数
+        requestBody.put("temperature", 0.7);
+        requestBody.put("max_tokens", 2000);
+        requestBody.put("stream", false);
+        return requestBody;
     }
 }

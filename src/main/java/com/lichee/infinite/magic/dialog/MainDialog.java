@@ -8,8 +8,10 @@ import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.ui.components.JBScrollPane;
 import com.lichee.infinite.magic.service.AIAssistantService;
+import com.lichee.infinite.magicplugin.utils.MagicPluginBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -31,7 +33,7 @@ public class MainDialog extends DialogWrapper {
     public MainDialog(@NotNull Project project) {
         super(project); // 使用project作为父组件
         this.project = project;
-        setTitle("AI 助手");
+        setTitle(MagicPluginBundle.message("ui.ai.assistant"));
         setModal(false); // 设置为非模态对话框，允许用户与IDE其他部分交互
         init(); // 初始化对话框
     }
@@ -67,7 +69,7 @@ public class MainDialog extends DialogWrapper {
 
     private JPanel createTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        settingsButton = new JButton("设置");
+        settingsButton = new JButton(MagicPluginBundle.message("ui.settings"));
         settingsButton.addActionListener(e -> openSettingsDialog());
         topPanel.add(settingsButton);
         return topPanel;
@@ -78,7 +80,7 @@ public class MainDialog extends DialogWrapper {
 
         // 提示词输入区域
         JPanel promptPanel = new JPanel(new BorderLayout(5, 5));
-        promptPanel.setBorder(BorderFactory.createTitledBorder("输入提示词"));
+        promptPanel.setBorder(BorderFactory.createTitledBorder(MagicPluginBundle.message("ui.input.prompt")));
         promptTextArea = new JTextArea(5, 50); // 5行高，50列宽
         promptTextArea.setLineWrap(true); // 启用自动换行
         promptTextArea.setWrapStyleWord(true); // 在单词边界处换行
@@ -88,7 +90,7 @@ public class MainDialog extends DialogWrapper {
 
         // 回答显示区域
         JPanel answerPanel = new JPanel(new BorderLayout(5, 5));
-        answerPanel.setBorder(BorderFactory.createTitledBorder("回答内容"));
+        answerPanel.setBorder(BorderFactory.createTitledBorder(MagicPluginBundle.message("ui.answer.content")));
         answerTextArea = new JTextArea(10, 50); // 10行高，50列宽
         answerTextArea.setLineWrap(true);
         answerTextArea.setWrapStyleWord(true);
@@ -108,7 +110,7 @@ public class MainDialog extends DialogWrapper {
 
         // 状态指示器面板
         JPanel statusPanel = new JPanel(new BorderLayout(5, 5));
-        statusLabel = new JLabel("就绪");
+        statusLabel = new JLabel(MagicPluginBundle.message("ui.ready"));
         statusPanel.add(statusLabel, BorderLayout.WEST);
 
         progressBar = new JProgressBar();
@@ -120,7 +122,7 @@ public class MainDialog extends DialogWrapper {
 
         // 提交按钮面板
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        submitButton = new JButton("提交");
+        submitButton = new JButton(MagicPluginBundle.message("ui.submit"));
         submitButton.addActionListener(e -> submitPrompt());
         buttonPanel.add(submitButton);
 
@@ -143,23 +145,23 @@ public class MainDialog extends DialogWrapper {
     private void submitPrompt() {
         String prompt = promptTextArea.getText().trim();
         if (prompt.isEmpty()) {
-            Messages.showWarningDialog("请输入提示词。", "提示");
+            Messages.showWarningDialog(MagicPluginBundle.message("ui.prompt.enter"), MagicPluginBundle.message("ui.prompt"));
             return;
         }
 
         // 禁用UI组件，防止重复提交
         setUiEnabled(false);
-        statusLabel.setText("正在处理...");
+        statusLabel.setText(MagicPluginBundle.message("ui.processing"));
         progressBar.setVisible(true);
 
         // 使用IntelliJ的后台任务框架执行耗时操作
-        ProgressManager.getInstance().run(new Task.Backgroundable(project, "调用AI服务", true) {
+        ProgressManager.getInstance().run(new Task.Backgroundable(project, MagicPluginBundle.message("ui.aiServiceCall"), true) {
             private String result = "";
             private Exception error = null;
 
             @Override
             public void run(@NotNull ProgressIndicator indicator) {
-                indicator.setText("正在与AI服务通信...");
+                indicator.setText(MagicPluginBundle.message("ui.communication.aiService"));
 
                 try {
                     AIAssistantService aiService = AIAssistantService.getInstance(project);
@@ -175,11 +177,11 @@ public class MainDialog extends DialogWrapper {
                 SwingUtilities.invokeLater(() -> {
                     progressBar.setVisible(false);
                     setUiEnabled(true);
-                    statusLabel.setText("就绪");
+                    statusLabel.setText(MagicPluginBundle.message("ui.ready"));
 
                     if (error != null) {
                         // 显示详细的错误信息
-                        showErrorWithDetails("调用AI服务时发生错误", error);
+                        showErrorWithDetails(MagicPluginBundle.message("ui.ai.service.error"), error);
                     } else {
                         answerTextArea.setText(result);
                     }
@@ -210,7 +212,7 @@ public class MainDialog extends DialogWrapper {
         JScrollPane scrollPane = new JBScrollPane(errorDetails);
 
         JPanel panel = new JPanel(new BorderLayout());
-        panel.add(new JLabel("错误详情:"), BorderLayout.NORTH);
+        panel.add(new JLabel(MagicPluginBundle.message("ui.error.details")), BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         JOptionPane.showMessageDialog(
