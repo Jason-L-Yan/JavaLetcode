@@ -29,13 +29,14 @@
         <notificationGroup id="MagicPluginNotification"
                            displayType="BALLOON"
                            key="notification.group.name"/>
-
     </extensions>
     <actions>
-        <action id="MagicPlugin.MagicAction" class="com.lichee.infinite.magicplugin.MagicAction" text="MagicAction"
-                description="MagicAction">
+        <action id="MagicPlugin.MagicAction" class="com.lichee.infinite.magicplugin.MagicAction">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut first-keystroke="control alt M" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="control alt i" keymap="$default"/>
+        </action>
+        <action id="MagicPlugin.MagicActionMenu" class="com.lichee.infinite.magicplugin.MagicAction">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
 
     </actions>
