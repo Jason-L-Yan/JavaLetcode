@@ -1,0 +1,42 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.lichee.infinite.MagicPlugin</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-name -->
+    <name>MagicPlugin</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="licheeinfinite@163.com">lichee</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
+    <description><![CDATA[
+    <em>利用大型语言模型为变量命名提供智能辅助。</br>
+    Leverage large language models for intelligent variable naming assistance.
+        </em>
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <resource-bundle>messages.MagicPluginBundle</resource-bundle>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="MagicPluginNotification"
+                           displayType="BALLOON"
+                           key="notification.group.name"/>
+
+    </extensions>
+    <actions>
+        <action id="MagicPlugin.MagicAction" class="com.lichee.infinite.magicplugin.MagicAction" text="MagicAction"
+                description="MagicAction">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut first-keystroke="control alt M" keymap="$default"/>
+        </action>
+
+    </actions>
+</idea-plugin>
