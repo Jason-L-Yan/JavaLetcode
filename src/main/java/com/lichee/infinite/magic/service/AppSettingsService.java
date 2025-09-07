@@ -24,13 +24,17 @@ public final class AppSettingsService implements PersistentStateComponent<AppSet
     public static class State {
         public String apiUrl = "";
         public String apiToken = "";
+        public String modelName = "deepseek-chat"; // 默认模型
+        public String systemPrompt = ""; // 新增系统提示词字段
 
         public State() {
         }
 
-        public State(String apiUrl, String apiToken) {
+        public State(String apiUrl, String apiToken, String modelName, String systemPrompt) {
             this.apiUrl = apiUrl;
             this.apiToken = apiToken;
+            this.modelName = modelName;
+            this.systemPrompt = systemPrompt;
         }
     }
 
@@ -57,6 +61,24 @@ public final class AppSettingsService implements PersistentStateComponent<AppSet
 
     public void setApiToken(String apiToken) {
         myState.apiToken = apiToken;
+    }
+
+    // 添加对应的 getter 和 setter 方法
+    public String getSystemPrompt() {
+        return myState.systemPrompt;
+    }
+
+    public void setSystemPrompt(String systemPrompt) {
+        myState.systemPrompt = systemPrompt;
+    }
+
+    // 同时添加对应的 getter 和 setter 方法
+    public String getModelName() {
+        return myState.modelName;
+    }
+
+    public void setModelName(String modelName) {
+        myState.modelName = modelName;
     }
 
     @Nullable

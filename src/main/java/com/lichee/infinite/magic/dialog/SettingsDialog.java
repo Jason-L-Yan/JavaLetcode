@@ -16,7 +16,8 @@ public class SettingsDialog extends DialogWrapper {
     private JPanel mainPanel;
     private JTextField apiUrlField;
     private JPasswordField apiTokenField;
-    private JButton saveButton;
+    private JTextField modelNameField;
+    private JTextField systemPromptField;
 
     // ... 不再需要直接持有 Project ...
     public SettingsDialog() { // 构造函数可以不需要 Project了
@@ -43,7 +44,7 @@ public class SettingsDialog extends DialogWrapper {
         mainPanel.setPreferredSize(new Dimension(500, 120));
 
         // 创建表单面板
-        JPanel formPanel = new JPanel(new GridLayout(2, 2, 5, 10));
+        JPanel formPanel = new JPanel(new GridLayout(4, 2, 5, 10));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // API URL 输入
@@ -55,6 +56,14 @@ public class SettingsDialog extends DialogWrapper {
         formPanel.add(new JLabel("API Token:"));
         apiTokenField = new JBPasswordField(); // 使用密码字段
         formPanel.add(apiTokenField);
+
+        formPanel.add(new JLabel("Model Name:"));
+        modelNameField = new JTextField(30);
+        formPanel.add(modelNameField);
+
+        formPanel.add(new JLabel("System Prompt:"));
+        systemPromptField = new JTextField(30);
+        formPanel.add(systemPromptField);
 
         mainPanel.add(formPanel, BorderLayout.CENTER);
     }
@@ -72,6 +81,8 @@ public class SettingsDialog extends DialogWrapper {
         AppSettingsService settingsService = AppSettingsService.getInstance();
         apiUrlField.setText(settingsService.getApiUrl());
         apiTokenField.setText(settingsService.getApiToken());
+        modelNameField.setText(settingsService.getModelName()); // 加载模型名称
+        systemPromptField.setText(settingsService.getSystemPrompt());
     }
 
     /**
@@ -80,9 +91,11 @@ public class SettingsDialog extends DialogWrapper {
     private void saveSettings() {
         String apiUrl = apiUrlField.getText().trim();
         String apiToken = new String(apiTokenField.getPassword()).trim();
+        String modelName = modelNameField.getText().trim(); // 获取模型名称
+        String systemPrompt = systemPromptField.getText().trim();
 
-        if (apiUrl.isEmpty() || apiToken.isEmpty()) {
-            Messages.showErrorDialog(this.getContentPane(), "API URL 和 Token 均不能为空。", "错误");
+        if (apiUrl.isEmpty() || apiToken.isEmpty() || modelName.isEmpty()) {
+            Messages.showErrorDialog(this.getContentPane(), "API URL、API Token和Model Mame不能为空。", "错误");
             return;
         }
 
@@ -90,6 +103,8 @@ public class SettingsDialog extends DialogWrapper {
             AppSettingsService settingsService = AppSettingsService.getInstance();
             settingsService.setApiUrl(apiUrl);
             settingsService.setApiToken(apiToken);
+            settingsService.setModelName(modelName);
+            settingsService.setSystemPrompt(systemPrompt);
 
             Messages.showInfoMessage(this.getContentPane(), "设置已成功保存。", "成功");
             close(DialogWrapper.OK_EXIT_CODE); // 关闭对话框

@@ -2,65 +2,108 @@ package com.lichee.infinite.magic.service;
 
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
+import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
- * 项目级 AI 助手服务，处理 AI  API 调用。
- * 使用轻量级 Service 注解。
+ * 项目级 AI 助手服务，处理 AI API 调用
+ * 改进版：添加了实际的HTTP请求实现和更完善的错误处理
  */
-@Service(Service.Level.PROJECT) // 指定为项目级服务
+@Service(Service.Level.PROJECT)
 public final class AIAssistantService {
 
     private final Project project;
+    private final OkHttpClient httpClient;
 
-    // Project 会被 IntelliJ 平台自动注入
+    // 使用连接池和超时设置的HTTP客户端
     public AIAssistantService(@NotNull Project project) {
         this.project = project;
+        this.httpClient = new OkHttpClient.Builder()
+                .connectTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .build();
     }
 
-    /**
-     * 获取当前项目的此服务实例。
-     */
     public static AIAssistantService getInstance(@NotNull Project project) {
         return project.getService(AIAssistantService.class);
     }
 
     /**
-     * 调用 AI  API。
-     *
-     * @param prompt 用户输入的提示词
-     * @return AI 的回答内容，或错误信息
+     * 调用 AI API - 改进版：使用实际的HTTP请求
      */
-    public String callApi(String prompt) {
+    public String callApi(String userPrompt) throws IOException {
         // 1. 获取设置
         AppSettingsService settingsService = AppSettingsService.getInstance();
         String apiUrl = settingsService.getApiUrl();
         String apiToken = settingsService.getApiToken();
-
+        String modelName = settingsService.getModelName(); // 获取配置的模型名称
+        String systemPrompt = settingsService.getSystemPrompt();
         // 2. 检查设置是否完整
-        if (apiUrl == null || apiUrl.isBlank() || apiToken == null || apiToken.isBlank()) {
-            return "错误：请先在设置中配置 API  URL 和 Token。";
+        if (apiUrl == null || apiUrl.isBlank() || apiToken == null || apiToken.isBlank() || modelName == null || modelName.isBlank()) {
+            throw new IllegalStateException("请先在设置中配置完整的 API 信息 (URL, Token, Model Name)。");
         }
 
-        // 3. 实际调用 API (此处为模拟实现)
-        try {
-            // 模拟网络延迟
-            Thread.sleep(1000);
-            // 这里是实际调用 HTTP 客户端 (如 OkHttp) 的地方
-            // String responseBody = makeHttpRequest(apiUrl, apiToken, prompt);
-            // return parseResponse(responseBody);
+        // 3. 构建符合 OpenAI API 格式的请求 JSON
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("model", modelName); // 使用配置的模型名称，而不是硬编码的
+        // 构建 messages 数组
+        JSONArray messagesArray = new JSONArray();
+        JSONObject userMessage = new JSONObject();
+        if (systemPrompt != null && !systemPrompt.isEmpty()) {
+            JSONObject systemMessage = new JSONObject();
+            systemMessage.put("role", "system");
+            systemMessage.put("content", systemPrompt);
+            messagesArray.put(systemMessage);
+        }
+        userMessage.put("role", "user");
+        userMessage.put("content", userPrompt);
+        messagesArray.put(userMessage);
+        requestBody.put("messages", messagesArray); // 确保 messages 字段存在且是数组
+        // 添加其他可选参数
+        requestBody.put("temperature", 0.7);
+        requestBody.put("max_tokens", 2000);
+        requestBody.put("stream", false);
 
-            return String.format("模拟对提示词 '%s' 的回复。\nAPI: %s\nToken: %s",
-                    prompt, apiUrl, apiToken.substring(0, Math.min(5, apiToken.length())) + "***");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return "API 调用被中断: " + e.getMessage();
+        RequestBody body = RequestBody.create(
+                requestBody.toString(),
+                MediaType.parse("application/json; charset=utf-8")
+        );
+
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .post(body)
+                .addHeader("Authorization", "Bearer " + apiToken)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        // 4. 执行请求
+        try (Response response = httpClient.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response + ": " + response.body().string());
+            }
+
+            // 5. 解析响应
+            String responseBody = response.body().string();
+            JSONObject jsonResponse = new JSONObject(responseBody);
+            // 根据实际的API响应结构进行调整
+            if (jsonResponse.has("choices") && jsonResponse.getJSONArray("choices").length() > 0) {
+                JSONArray choices = jsonResponse.getJSONArray("choices");
+                JSONObject firstChoice = choices.getJSONObject(0);
+                JSONObject message = firstChoice.getJSONObject("message");
+                return message.getString("content");
+            } else if (jsonResponse.has("message")) {
+                return jsonResponse.getString("message");
+            } else {
+                return "无法解析API响应: " + responseBody;
+            }
         } catch (Exception e) {
-            return "API 调用发生错误: " + e.getMessage();
+            throw new IOException("API调用失败: " + e.getMessage(), e);
         }
     }
-
-    // 实际项目中，你会在这里实现 HTTP 请求逻辑
-    // private String makeHttpRequest(String url, String token, String prompt) { ... }
-    // private String parseResponse(String json) { ... }
 }

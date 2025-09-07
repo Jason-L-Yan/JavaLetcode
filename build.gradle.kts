@@ -20,6 +20,12 @@ repositories {
 // Configure IntelliJ Platform Gradle Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
 dependencies {
+    dependencies {
+        implementation("com.squareup.okhttp3:okhttp:4.10.0") // HTTP客户端
+        implementation("org.json:json:20231013") // JSON处理
+        // 其他依赖...
+    }
+
     intellijPlatform {
         // 使用本地安装的IDE而不是下载
         // 请确保路径正确指向你的IntelliJ IDEA安装目录

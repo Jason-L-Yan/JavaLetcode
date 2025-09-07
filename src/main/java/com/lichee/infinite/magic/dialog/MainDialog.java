@@ -1,5 +1,8 @@
 package com.lichee.infinite.magic.dialog;
 
+import com.intellij.openapi.progress.ProgressIndicator;
+import com.intellij.openapi.progress.ProgressManager;
+import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
@@ -7,12 +10,12 @@ import com.intellij.ui.components.JBScrollPane;
 import com.lichee.infinite.magic.service.AIAssistantService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * 主对话框，包含提示词输入和回答显示区域
+ * 改进版：包含线程安全、错误处理和用户体验优化
  */
 public class MainDialog extends DialogWrapper {
 
@@ -22,6 +25,8 @@ public class MainDialog extends DialogWrapper {
     private JTextArea answerTextArea;
     private JButton submitButton;
     private JButton settingsButton;
+    private JProgressBar progressBar;
+    private JLabel statusLabel;
 
     public MainDialog(@NotNull Project project) {
         super(project); // 使用project作为父组件
@@ -52,17 +57,14 @@ public class MainDialog extends DialogWrapper {
         JPanel centerPanel = createCenterPanelInternal();
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
-        // 3. 创建底部面板（放置提交按钮）
+        // 3. 创建底部面板（放置提交按钮和状态指示器）
         JPanel bottomPanel = createBottomPanel();
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         // 设置对话框的首选大小
-        mainPanel.setPreferredSize(new Dimension(600, 500));
+        mainPanel.setPreferredSize(new Dimension(600, 550));
     }
 
-    /**
-     * 创建顶部面板（包含设置按钮）
-     */
     private JPanel createTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         settingsButton = new JButton("设置");
@@ -71,9 +73,6 @@ public class MainDialog extends DialogWrapper {
         return topPanel;
     }
 
-    /**
-     * 创建中部面板（包含提示词输入区和回答显示区）
-     */
     private JPanel createCenterPanelInternal() {
         JPanel centerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
 
@@ -105,10 +104,28 @@ public class MainDialog extends DialogWrapper {
      * 创建底部面板（包含提交按钮）
      */
     private JPanel createBottomPanel() {
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel bottomPanel = new JPanel(new BorderLayout(5, 5));
+
+        // 状态指示器面板
+        JPanel statusPanel = new JPanel(new BorderLayout(5, 5));
+        statusLabel = new JLabel("就绪");
+        statusPanel.add(statusLabel, BorderLayout.WEST);
+
+        progressBar = new JProgressBar();
+        progressBar.setVisible(false); // 初始时隐藏进度条
+        progressBar.setIndeterminate(true); // 设置为不确定进度
+        statusPanel.add(progressBar, BorderLayout.CENTER);
+
+        bottomPanel.add(statusPanel, BorderLayout.CENTER);
+
+        // 提交按钮面板
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         submitButton = new JButton("提交");
         submitButton.addActionListener(e -> submitPrompt());
-        bottomPanel.add(submitButton);
+        buttonPanel.add(submitButton);
+
+        bottomPanel.add(buttonPanel, BorderLayout.EAST);
+
         return bottomPanel;
     }
 
@@ -121,7 +138,7 @@ public class MainDialog extends DialogWrapper {
     }
 
     /**
-     * 提交提示词到AI服务
+     * 提交提示词到AI服务 - 使用后台任务避免阻塞UI线程
      */
     private void submitPrompt() {
         String prompt = promptTextArea.getText().trim();
@@ -130,20 +147,93 @@ public class MainDialog extends DialogWrapper {
             return;
         }
 
-        // 在实际应用中，这里应该使用 BackgroundableTask 或类似机制在后台线程中执行耗时操作
-        // 此处为简化示例，直接在UI线程中调用
-        try {
-            AIAssistantService aiService = AIAssistantService.getInstance(project);
-            String response = aiService.callApi(prompt);
-            answerTextArea.setText(response);
-        } catch (Exception ex) {
-            Messages.showErrorDialog("调用AI服务时发生错误: " + ex.getMessage(), "错误");
+        // 禁用UI组件，防止重复提交
+        setUiEnabled(false);
+        statusLabel.setText("正在处理...");
+        progressBar.setVisible(true);
+
+        // 使用IntelliJ的后台任务框架执行耗时操作
+        ProgressManager.getInstance().run(new Task.Backgroundable(project, "调用AI服务", true) {
+            private String result = "";
+            private Exception error = null;
+
+            @Override
+            public void run(@NotNull ProgressIndicator indicator) {
+                indicator.setText("正在与AI服务通信...");
+
+                try {
+                    AIAssistantService aiService = AIAssistantService.getInstance(project);
+                    result = aiService.callApi(prompt);
+                } catch (Exception ex) {
+                    error = ex;
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                // 在EDT线程中更新UI
+                SwingUtilities.invokeLater(() -> {
+                    progressBar.setVisible(false);
+                    setUiEnabled(true);
+                    statusLabel.setText("就绪");
+
+                    if (error != null) {
+                        // 显示详细的错误信息
+                        showErrorWithDetails("调用AI服务时发生错误", error);
+                    } else {
+                        answerTextArea.setText(result);
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 启用或禁用UI组件
+     */
+    private void setUiEnabled(boolean enabled) {
+        promptTextArea.setEnabled(enabled);
+        submitButton.setEnabled(enabled);
+        settingsButton.setEnabled(enabled);
+    }
+
+    /**
+     * 显示带详细错误信息的对话框
+     */
+    private void showErrorWithDetails(String title, Exception error) {
+        // 创建带详细信息的错误对话框
+        JTextArea errorDetails = new JTextArea(10, 50);
+        errorDetails.setText(error.toString() + "\n\nStack Trace:\n" + getStackTrace(error));
+        errorDetails.setEditable(false);
+        errorDetails.setCaretPosition(0);
+
+        JScrollPane scrollPane = new JBScrollPane(errorDetails);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JLabel("错误详情:"), BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        JOptionPane.showMessageDialog(
+                this.getWindow(),
+                panel,
+                title,
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    /**
+     * 获取异常的堆栈跟踪信息
+     */
+    private String getStackTrace(Exception e) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement element : e.getStackTrace()) {
+            sb.append(element.toString()).append("\n");
         }
+        return sb.toString();
     }
 
     @Override
     protected Action @NotNull [] createActions() {
-        // 不提供默认的OK/Cancel按钮，使用我们自己的提交按钮
         return new Action[]{};
     }
 }
