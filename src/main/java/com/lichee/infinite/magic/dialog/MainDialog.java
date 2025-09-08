@@ -11,9 +11,12 @@ import com.lichee.infinite.magic.service.AIAssistantService;
 import com.lichee.infinite.magicplugin.utils.MagicPluginBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import reactor.core.Disposable;
+import reactor.core.publisher.Flux;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 主对话框，包含提示词输入和回答显示区域
@@ -29,6 +32,8 @@ public class MainDialog extends DialogWrapper {
     private JButton settingsButton;
     private JProgressBar progressBar;
     private JLabel statusLabel;
+    private Disposable streamingDisposable; // 用于取消流式请求
+    private final AtomicReference<StringBuilder> fullResponse = new AtomicReference<>(new StringBuilder());
 
     public MainDialog(@NotNull Project project) {
         super(project); // 使用project作为父组件
@@ -149,45 +154,57 @@ public class MainDialog extends DialogWrapper {
             return;
         }
 
+        // 取消之前的请求（如果有）
+        if (streamingDisposable != null && !streamingDisposable.isDisposed()) {
+            streamingDisposable.dispose();
+        }
+
+        // 重置状态
+        fullResponse.set(new StringBuilder());
+        answerTextArea.setText("");
+
         // 禁用UI组件，防止重复提交
         setUiEnabled(false);
         statusLabel.setText(MagicPluginBundle.message("ui.processing"));
         progressBar.setVisible(true);
 
-        // 使用IntelliJ的后台任务框架执行耗时操作
-        ProgressManager.getInstance().run(new Task.Backgroundable(project, MagicPluginBundle.message("ui.aiServiceCall"), true) {
-            private String result = "";
-            private Exception error = null;
-
-            @Override
-            public void run(@NotNull ProgressIndicator indicator) {
-                indicator.setText(MagicPluginBundle.message("ui.communication.aiService"));
-
-                try {
-                    AIAssistantService aiService = AIAssistantService.getInstance(project);
-                    result = aiService.callApi(prompt);
-                } catch (Exception ex) {
-                    error = ex;
-                }
-            }
-
-            @Override
-            public void onFinished() {
-                // 在EDT线程中更新UI
-                SwingUtilities.invokeLater(() -> {
-                    progressBar.setVisible(false);
-                    setUiEnabled(true);
-                    statusLabel.setText(MagicPluginBundle.message("ui.ready"));
-
-                    if (error != null) {
-                        // 显示详细的错误信息
-                        showErrorWithDetails(MagicPluginBundle.message("ui.ai.service.error"), error);
-                    } else {
-                        answerTextArea.setText(result);
-                    }
-                });
-            }
-        });
+        try {
+            AIAssistantService aiService = AIAssistantService.getInstance(project);
+            streamingDisposable = aiService.callApiStreaming(prompt)
+                    .subscribe(
+                            chunk -> {
+                                // 在EDT线程中更新UI
+                                SwingUtilities.invokeLater(() -> {
+                                    StringBuilder currentResponse = fullResponse.get();
+                                    currentResponse.append(chunk);
+                                    answerTextArea.setText(currentResponse.toString());
+                                    // 自动滚动到最底部
+                                    answerTextArea.setCaretPosition(answerTextArea.getDocument().getLength());
+                                });
+                            },
+                            error -> {
+                                SwingUtilities.invokeLater(() -> {
+                                    progressBar.setVisible(false);
+                                    setUiEnabled(true);
+                                    statusLabel.setText(MagicPluginBundle.message("ui.error"));
+                                    showErrorWithDetails(MagicPluginBundle.message("ui.ai.service.error"), error);
+                                });
+                            },
+                            () -> {
+                                SwingUtilities.invokeLater(() -> {
+                                    progressBar.setVisible(false);
+                                    setUiEnabled(true);
+                                    statusLabel.setText(MagicPluginBundle.message("ui.ready"));
+                                });
+                            }
+                    );
+        } catch (Exception e) {
+            // 处理初始调用错误
+            progressBar.setVisible(false);
+            setUiEnabled(true);
+            statusLabel.setText(MagicPluginBundle.message("ui.error"));
+            showErrorWithDetails(MagicPluginBundle.message("ui.ai.service.error"), e);
+        }
     }
 
     /**
@@ -202,10 +219,10 @@ public class MainDialog extends DialogWrapper {
     /**
      * 显示带详细错误信息的对话框
      */
-    private void showErrorWithDetails(String title, Exception error) {
+    private void showErrorWithDetails(String title, Throwable error) {
         // 创建带详细信息的错误对话框
         JTextArea errorDetails = new JTextArea(10, 50);
-        errorDetails.setText(error.toString() + "\n\nStack Trace:\n" + getStackTrace(error));
+        errorDetails.setText(error.toString() + "\n\nStack Trace:\n" + error);
         errorDetails.setEditable(false);
         errorDetails.setCaretPosition(0);
 

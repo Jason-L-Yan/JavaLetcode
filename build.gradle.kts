@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.lichee.infinite"
-version = "1.3-Release"
+version = "1.6-Release"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public")
@@ -21,8 +21,11 @@ repositories {
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
 dependencies {
     dependencies {
+        implementation("org.springframework:spring-context:5.3.30")
         implementation("com.squareup.okhttp3:okhttp:4.10.0") // HTTP客户端
         implementation("org.json:json:20231013") // JSON处理
+        implementation("org.springframework:spring-webflux:6.1.0")
+        implementation("io.projectreactor.netty:reactor-netty:1.1.0")
         // 其他依赖...
     }
 

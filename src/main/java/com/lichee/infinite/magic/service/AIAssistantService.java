@@ -1,15 +1,21 @@
 package com.lichee.infinite.magic.service;
 
+import com.google.gson.Gson;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
+import com.lichee.infinite.magic.model.DeepSeekRepo;
 import com.lichee.infinite.magicplugin.utils.MagicPluginBundle;
-import okhttp3.*;
+import kotlinx.html.S;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 /**
  * 项目级 AI 助手服务，处理 AI API 调用
@@ -19,16 +25,13 @@ import java.util.concurrent.TimeUnit;
 public final class AIAssistantService {
 
     private final Project project;
-    private final OkHttpClient httpClient;
+    private final WebClient webClient;
 
     // 使用连接池和超时设置的HTTP客户端
     public AIAssistantService(@NotNull Project project) {
         this.project = project;
-        this.httpClient = new OkHttpClient.Builder()
-                .connectTimeout(300, TimeUnit.SECONDS)
-                .writeTimeout(300, TimeUnit.SECONDS)
-                .readTimeout(300, TimeUnit.SECONDS)
-                .build();
+        // 从 WebClientManager 获取 WebClient 实例
+        this.webClient = WebClientManager.getInstance().getWebClient();
     }
 
     public static AIAssistantService getInstance(@NotNull Project project) {
@@ -36,9 +39,9 @@ public final class AIAssistantService {
     }
 
     /**
-     * 调用 AI API - 改进版：使用实际的HTTP请求
+     * 使用 WebClient 和 SSE 调用 AI API
      */
-    public String callApi(String userPrompt) throws IOException {
+    public Flux<String> callApiStreaming(String userPrompt) {
         // 1. 获取设置
         AppSettingsService settingsService = AppSettingsService.getInstance();
         String apiUrl = settingsService.getApiUrl();
@@ -53,41 +56,20 @@ public final class AIAssistantService {
         // 3. 构建符合 OpenAI API 格式的请求 JSON
         JSONObject requestBody = getRequestBody(userPrompt, modelName, systemPrompt);
 
-        RequestBody body = RequestBody.create(
-                requestBody.toString(),
-                MediaType.parse("application/json; charset=utf-8")
-        );
-
-        Request request = new Request.Builder()
-                .url(apiUrl)
-                .post(body)
-                .addHeader("Authorization", "Bearer " + apiToken)
-                .addHeader("Content-Type", "application/json")
-                .build();
-
-        // 4. 执行请求
-        try (Response response = httpClient.newCall(request).execute()) {
-            if (!response.isSuccessful()) {
-                throw new IOException("Unexpected code " + response + ": " + response.body().string());
-            }
-
-            // 5. 解析响应
-            String responseBody = response.body().string();
-            JSONObject jsonResponse = new JSONObject(responseBody);
-            // 根据实际的API响应结构进行调整
-            if (jsonResponse.has("choices") && jsonResponse.getJSONArray("choices").length() > 0) {
-                JSONArray choices = jsonResponse.getJSONArray("choices");
-                JSONObject firstChoice = choices.getJSONObject(0);
-                JSONObject message = firstChoice.getJSONObject("message");
-                return message.getString("content");
-            } else if (jsonResponse.has("message")) {
-                return jsonResponse.getString("message");
-            } else {
-                return MagicPluginBundle.message("ui.api.response.unparseable") + responseBody;
-            }
-        } catch (Exception e) {
-            throw new IOException(MagicPluginBundle.message("ui.api.call.failure") + e.getMessage(), e);
-        }
+        return webClient.post()
+                .uri(apiUrl)
+                .header("Authorization", "Bearer " + apiToken)
+                .header("Content-Type", "application/json")
+                .bodyValue(requestBody.toString())
+                .accept(MediaType.TEXT_EVENT_STREAM)
+                .retrieve()
+                .bodyToFlux(String.class)
+                .timeout(Duration.ofSeconds(300)) // 设置超时时间;
+                .onErrorResume(e -> Flux.error(new IOException(MagicPluginBundle.message("ui.api.call.failure") + e.getMessage(), e)))
+                .publishOn(Schedulers.boundedElastic()) // 在后台线程处理
+                .filter(data -> !data.equals("[DONE]") && !data.trim().isEmpty()) // 过滤结束信号和空数据
+                .map(sseData -> extractContentFromSSE(sseData, modelName)) // 提取内容
+                .filter(content -> content != null && !content.isEmpty()); // 过滤空内容
     }
 
     private static @NotNull JSONObject getRequestBody(String userPrompt, String modelName, String systemPrompt) {
@@ -109,7 +91,34 @@ public final class AIAssistantService {
         // 添加其他可选参数
         requestBody.put("temperature", 0.7);
         requestBody.put("max_tokens", 2000);
-        requestBody.put("stream", false);
+        requestBody.put("stream", true);
         return requestBody;
+    }
+
+    private String extractContentFromSSE(String sseData, String modelName) {
+        System.out.println("Raw SSE Data: " + sseData); // 添加日志记录原始数据
+        try {
+            if (sseData!=null && !sseData.isEmpty()) {
+                DeepSeekRepo deepSeekRepo = new Gson().fromJson(sseData, DeepSeekRepo.class);
+                if (deepSeekRepo != null && deepSeekRepo.getChoices() != null && !deepSeekRepo.getChoices().isEmpty()) {
+                    String reasoningContent = deepSeekRepo.getChoices().get(0).getDelta().getReasoning_content();
+                    String content = deepSeekRepo.getChoices().get(0).getDelta().getContent();
+                    if (modelName.equalsIgnoreCase("deepseek-reasoner") && reasoningContent != null) {
+                        return reasoningContent;
+                    }
+                    if (content == null) {
+                        return "";
+                    }
+                    return content;
+                }
+            } else if (sseData.trim().isEmpty()) {
+                // 忽略空行或心跳包
+                System.out.println("Received empty line or heartbeat");
+                return "";
+            }
+        } catch (Exception e) {
+            System.err.println("Error parsing SSE data: " + sseData + ", error: " + e.getMessage());
+        }
+        return "";
     }
 }
